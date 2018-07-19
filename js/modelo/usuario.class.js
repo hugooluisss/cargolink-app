@@ -1,11 +1,11 @@
 TUsuario = function(chofer){
 	var self = this;
-	self.idUsuario = window.localStorage.getItem("session");
+	self.idTransportista = window.localStorage.getItem("session");
 	self.datos = {};
 	
 	this.isLogin = function(){
-		if (self.idUsuario == '' || self.idUsuario == undefined || self.idUsuario == null) return false;
-		if (self.idUsuario != window.localStorage.getItem("session")) return false;
+		if (self.idTransportista == '' || self.idTransportista == undefined || self.idTransportista == null) return false;
+		if (self.idTransportista != window.localStorage.getItem("session")) return false;
 		
 		return true;
 	};
@@ -16,14 +16,14 @@ TUsuario = function(chofer){
 		$.post(server + 'clogin', {
 			"usuario": datos.usuario,
 			"pass": datos.pass, 
-			"action": 'login',
+			"action": 'logintransportista',
 			"movil": 'true'
 		}, function(resp){
 			if (resp.band == false)
 				console.log(resp.mensaje);
 			else{
 				window.localStorage.setItem("session", resp.datos.usuario);
-				self.idUsuario = resp.datos.idUsuario;
+				self.idTransportista = resp.datos.idTransportista;
 			}
 				
 			if (datos.fn.after !== undefined)
@@ -34,7 +34,7 @@ TUsuario = function(chofer){
 	this.getData = function(datos){
 		if (datos.fn.before !== undefined) datos.fn.before();
 		
-		var usuario = datos.idUsuario == undefined?self.idUsuario:datos.idUsuario;
+		var usuario = datos.idTransportista == undefined?self.idTransportista:datos.idTransportista;
 		
 		$.post(server + 'cusuarios', {
 			"id": usuario,

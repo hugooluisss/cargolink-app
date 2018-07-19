@@ -52,16 +52,15 @@ function callLogin(){
 						$("#frmLogin [type=submit]").prop("disabled", true);
 					},
 					after: function(data){
-						if (data.band == false || (data.datos.perfil != 4 && data.datos.perfil != 5)){
+						if (data.band == false){
 							mensajes.alert({
 								"mensaje": "Tus datos no son válidos",
 								"titulo": "Inicio de sesión"
 							});
 							$("#frmLogin [type=submit]").prop("disabled", false);
 						}else{
-							window.localStorage.removeItem("sesion");
-							window.localStorage.setItem("sesion", data.datos.usuario);
-							window.localStorage.setItem("perfil", data.datos.perfil);
+							window.localStorage.removeItem("session");
+							window.localStorage.setItem("session", data.datos.idTransportista);
 							
 							location.href = "inicio.html";
 						}

@@ -82,6 +82,21 @@ $(document).ready(function(){
 	getPlantillas(function(){
 		callIndex();
 	});
-	
 	//app.onDeviceReady();
 });
+
+function callPanel(panel){
+	switch(panel){
+		case 'login':
+			callLogin();
+		break;
+		case 'index':
+			callIndex();
+		break;
+		case 'registro':
+			callRegistro();
+		break;
+		default:
+			console.info("Panel no encontrado");
+	}
+}
