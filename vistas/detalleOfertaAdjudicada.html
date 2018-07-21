@@ -42,8 +42,7 @@
 		<br />
 	</div>
 	<div class="dvTerminar">
-		<hr />
-		<p class="text-justify">¿Estás en uno de los puntos de entrega? indícalo para avisarle al cliente</p>
+		<p class="text-justify">¿Estás en el lugar de la entrega? indícalo para avisarle al cliente</p>
 		<div class="row">
 			<div class="col-12 text-center botonesEntrega">
 				<div class="btn-group btn-group-justified" style="width: 90%" role="group">
@@ -56,12 +55,56 @@
 		<br />
 	</div>
 	
-	
+	<hr />
 	
 	
 	<div class="row">
 		<div class="col-12">
 			<button type="button" class="btn btn-default btn-block btnRegresar">REGRESAR</button>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade" id="winTerminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" punto="">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Terminar entrega</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-12 text-center titulo">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center" id="lstImg">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 text-center">
+						<button id="btnCamara" indice="1" class="btn btn-default btn-sm"><i class="fa fa-camera" aria-hidden="true"></i></button>
+						<button id="btnGaleria" indice="1" class="btn btn-default btn-sm"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-12 text-mute text-center">¿Algún comentario?</div>
+				</div>
+				<div class="row">
+					<div class="col-12 text-center">
+						<textarea id="txtComentario" name="txtComentario" class="form-control" rows="5"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="btnReset" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button class="btn btn-danger pull-right" id="btnTerminar">Terminar entrega</button>
+			</div>
 		</div>
 	</div>
 </div>
