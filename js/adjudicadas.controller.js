@@ -63,7 +63,7 @@ function callAdjudicadas(){
 					var idOrden = window.localStorage.getItem("idOrden");
 					plantilla.find(".dvEnRuta").hide();
 					plantilla.find(".dvTerminar").hide();
-					
+					console.log(idOrden, datos.idOrden);
 					if (idOrden == undefined)
 						plantilla.find(".dvEnRuta").show();
 					else
@@ -113,6 +113,7 @@ function callAdjudicadas(){
 										"orden": idOrden,
 										"latitude": position.coords.latitude,
 										"longitude": position.coords.longitude,
+										"gps": position,
 										"action": 'addPosicion',
 										"movil": true
 									}, function(resp){
