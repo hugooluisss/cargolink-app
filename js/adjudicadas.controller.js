@@ -113,8 +113,8 @@ function callAdjudicadas(){
 										"orden": idOrden,
 										"latitude": position.coords.latitude,
 										"longitude": position.coords.longitude,
-										"action": 'logPosicion',
-										"movil": '1'
+										"action": 'addPosicion',
+										"movil": true
 									}, function(resp){
 										if (!resp.band)
 											console.log("Error");
