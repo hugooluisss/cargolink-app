@@ -1,0 +1,62 @@
+<div class="detalleOrden">
+	<div class="row">
+		<div class="col-12 presupuesto">Presupuesto aceptado <span class="badge badge-success" campo="presupuestofinal"></span></div>
+	</div>
+	<div class="mapa" id="mapa"></div>
+	<br />
+	<div class="row posiciones">
+		<div class="col-6 text-justify">
+			<p class="text-center"><img src="img/truck.png" class="mark"> <b>Origen</b></p>
+			<span campo="direccion_origen"></span>
+		</div>
+		<div class="col-6 text-justify">
+			<p class="text-center"><img src="img/house.png" class="mark"> <b>Destino</b></p>
+			<span campo="direccion_destino" before=" hasta "></span>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-6 text-left">
+			<i class="fas fa-balance-scale"></i> <span campo="peso" after=" Ton."></span>
+		</div>
+		<div class="col-6 text-right">
+			<i class="fas fa-calendar" aria-hidden="true"></i> <span campo="fechaservicio"></span>
+		</div>
+	</div>
+	<hr />
+	<p campo="descripcion"></p>
+	<hr />
+	
+	
+	<div class="dvEnRuta">
+		<p class="text-justify">Una vez la carga o proceso de entrega debes de colocar tu posición <b>EN RUTA</b> para informar tu posición y mejorar la información hacia el cliente</p>
+		<div class="row">
+			<div class="col-12 text-center">
+				<div class="btn-group btn-group-justified" style="width: 90%" role="group">
+					<div class="btn-group" role="group" style="width: 100%">
+						<button type="button" class="btn btn-warning btn-block btnEnRuta">En ruta</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+	<div class="dvTerminar">
+		<hr />
+		<p class="text-justify">¿Estás en uno de los puntos de entrega? indícalo para avisarle al cliente</p>
+		<div class="row">
+			<div class="col-12 text-center botonesEntrega">
+			</div>
+		</div>
+		<br />
+	</div>
+	
+	
+	
+	
+	<div class="row">
+		<div class="col-12">
+			<button type="button" class="btn btn-default btn-block btnRegresar">REGRESAR</button>
+		</div>
+	</div>
+</div>

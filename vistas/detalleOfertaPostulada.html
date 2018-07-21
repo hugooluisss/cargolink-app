@@ -1,0 +1,35 @@
+<div class="detalleOrden">
+	<div class="row">
+		<div class="col-12 presupuesto">Presupuesto disponible del cliente <span class="badge badge-success" campo="presupuesto"></span></div>
+	</div>
+	<div class="mapa" id="mapa"></div>
+	<br />
+	<div class="row posiciones">
+		<div class="col-6 text-justify">
+			<p class="text-center"><img src="img/truck.png" class="mark"> <b>Origen</b></p>
+			<span campo="direccion_origen"></span>
+		</div>
+		<div class="col-6 text-justify">
+			<p class="text-center"><img src="img/house.png" class="mark"> <b>Destino</b></p>
+			<span campo="direccion_destino" before=" hasta "></span>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-6 text-left">
+			<i class="fas fa-balance-scale"></i> <span campo="peso" after=" Ton."></span>
+		</div>
+		<div class="col-6 text-right">
+			<i class="fas fa-calendar" aria-hidden="true"></i> <span campo="fechaservicio"></span>
+		</div>
+	</div>
+	<hr />
+	<p campo="descripcion"></p>
+	<hr />
+	
+	<div class="row">
+		<div class="col-12">
+			<button type="button" class="btn btn-default btn-block btnRegresar">BUSCAR OTRA</button>
+		</div>
+	</div>
+</div>
