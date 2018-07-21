@@ -5,7 +5,7 @@
 		id    = "com.cargolink.apps"
 		version  = "1.0.1">  
 		
-		<name>CargoLink</name>  
+		<name>Cargo Link</name>
 		<description>Cargo Link</description>  
 		<!--  
 			If you do not want any permissions to be added to your app, add the  
