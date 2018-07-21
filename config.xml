@@ -2,10 +2,10 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->  
 	<widget xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:gap = "http://phonegap.com/ns/1.0"  
-		id    = "com.cargolink.apps"
+		id    = "com.cargolink.app"
 		version  = "1.0.1">  
 		
-		<name>Cargo Link</name>
+		<name>CargoLink</name>
 		<description>Cargo Link</description>  
 		<!--  
 			If you do not want any permissions to be added to your app, add the  
@@ -74,7 +74,7 @@
 		<plugin name="cordova-plugin-dialogs" source="npm"/>
 		<!-- add a version here, otherwise PGB will use whatever the latest version of the package on npm is -->
 		
-		<!--<plugin name="cordova-plugin-geolocation" source="npm"/>-->
+		<plugin name="cordova-plugin-geolocation" source="npm"/>
 		
 		<plugin name="cordova-plugin-network-information" source="npm"/>
 		<!--
@@ -83,6 +83,7 @@
 		-->
 		<plugin name="cordova-plugin-whitelist" source="npm"/>
 		<gap:plugin name="pushbots-cordova-plugin" spec="1.5.x" source="npm" />
+		<plugin name="cordova-plugin-background-mode"/>
 
 
 		
@@ -149,7 +150,7 @@
 		</gap:config-file>
 		
 		<gap:config-file platform="ios" parent="NSCameraUsageDescription">
-			<string>Para la elaboración de reportes en el servicio de ordenes</string>
+			<string>Para la elaboracion de reportes en el servicio de ordenes</string>
 		</gap:config-file>
 		
 		<!--  
