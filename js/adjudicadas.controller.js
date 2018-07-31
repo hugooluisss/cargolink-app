@@ -63,13 +63,13 @@ function callAdjudicadas(){
 					var idOrden = window.localStorage.getItem("idOrden");
 					detalle.find(".dvEnRuta").hide();
 					detalle.find(".dvTerminar").hide();
-					
-					if (idOrden == undefined)
-						plantilla.find(".dvEnRuta").show();
-					else if (idOrden == datos.idOrden)
+					console.info(idOrden);
+					if (idOrden == undefined || idOrden == null){
+						detalle.find(".dvEnRuta").show();
+					}else if (idOrden == datos.idOrden)
 						detalle.find(".dvTerminar").show();
 					else
-						plantilla.find(".dvEnRuta").show();
+						detalle.find(".dvEnRuta").show();
 						
 						
 					
