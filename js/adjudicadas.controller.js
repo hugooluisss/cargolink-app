@@ -152,6 +152,7 @@ function callAdjudicadas(){
 					
 					$(".btnEnRuta").attr("oferta", datos.idOrden).click(function(){
 						setRuta($(".btnEnRuta").attr("oferta"));
+						callAdjudicadas();
 					});
 					
 					if (datos.idEstado == 4)
@@ -176,7 +177,6 @@ function callAdjudicadas(){
 						cordova.plugins.backgroundMode.enable();
 						
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
-						callAdjudicadas();
 					}
 					
 					$("#btnTerminar").attr("oferta", datos.idOrden).click(function(){
