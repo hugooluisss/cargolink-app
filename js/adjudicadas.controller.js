@@ -103,12 +103,15 @@ function callAdjudicadas(){
 							
 							var fecha = window.localStorage.getItem("fecha");
 							var dt = new Date();
-							
+								
 							fecha = fecha == null || fecha == NaN || fecha == 'NaN'?(dt.getTime()):fecha;
+							
+							if (fecha == null || fecha == NaN || fecha == 'NaN')
+								window.localStorage.setItem("fecha", dt.getTime());
 							
 							if (idOrden != undefined && idOrden != ''){
 								var ultimoUpdate = new Date(fecha);
-								if (dt.getTime() - (60000) >= fecha){
+								if ((dt.getTime() - 60000) >= fecha){
 									window.localStorage.setItem("fecha", dt.getTime());
 									
 									$.post(server + 'cordenes', {
