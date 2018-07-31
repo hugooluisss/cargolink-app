@@ -68,6 +68,8 @@ function callAdjudicadas(){
 						plantilla.find(".dvEnRuta").show();
 					else if (idOrden == datos.idOrden)
 						detalle.find(".dvTerminar").show();
+					else
+						plantilla.find(".dvEnRuta").show();
 						
 						
 					
@@ -149,12 +151,19 @@ function callAdjudicadas(){
 					
 					
 					$(".btnEnRuta").attr("oferta", datos.idOrden).click(function(){
+						setRuta($(".btnEnRuta").attr("oferta"));
+					});
+					
+					if (datos.idEstado == 4)
+						setRuta(datos.idOrden);
+					
+					function setRuta(orden){
 						window.localStorage.removeItem("idOrden");
 						window.localStorage.removeItem("fecha");
-						window.localStorage.setItem("idOrden", datos.idOrden);
+						window.localStorage.setItem("idOrden", orden);
 						
 						$.post(server + 'cordenes', {
-							"orden": datos.idOrden,
+							"orden": orden,
 							"action": 'setEnRuta',
 							"movil": '1'
 						}, function(resp){
@@ -168,7 +177,7 @@ function callAdjudicadas(){
 						
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
 						callAdjudicadas();
-					});
+					}
 					
 					$("#btnTerminar").attr("oferta", datos.idOrden).click(function(){
 						var punto = $("#winTerminar").attr("punto");
