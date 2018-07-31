@@ -109,7 +109,7 @@ function callAdjudicadas(){
 							if (idOrden != undefined && idOrden != ''){
 								var ultimoUpdate = new Date(fecha);
 								if (dt.getTime() - (60000) >= fecha){
-									window.localStorage.setItem("fecha", ultimoUpdate.getTime());
+									window.localStorage.setItem("fecha", dt.getTime());
 									
 									$.post(server + 'cordenes', {
 										"orden": idOrden,
@@ -142,7 +142,7 @@ function callAdjudicadas(){
 							console.log("Error GPS", error);
 						}, {
 							enableHighAccuracy: false, 
-							maximumAge        : 1200000, 
+							maximumAge        : 0, 
 							timeout           : 1200000
 						});
 					});
