@@ -103,11 +103,11 @@ function callAdjudicadas(){
 							
 							var fecha = window.localStorage.getItem("fecha");
 							var dt = new Date();
-								
-							fecha = fecha == null || fecha == NaN || fecha == 'NaN'?(dt.getTime()):fecha;
 							
 							if (fecha == null || fecha == NaN || fecha == 'NaN')
 								window.localStorage.setItem("fecha", dt.getTime());
+								
+							fecha = fecha == null || fecha == NaN || fecha == 'NaN'?(dt.getTime()):fecha;
 							
 							if (idOrden != undefined && idOrden != ''){
 								var ultimoUpdate = new Date(fecha);
