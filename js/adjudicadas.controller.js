@@ -252,6 +252,7 @@ function callAdjudicadas(){
 						}else{
 							alertify.confirm("¿Estás seguro?", function (e) {
 								if (e) {
+									$("#winTerminar").modal("hide");
 									var fotografias = new Array;
 									i = 0;
 									$("#lstImg").find("img").each(function(){
@@ -267,7 +268,6 @@ function callAdjudicadas(){
 										fn: {
 										 	before: function(){
 										 	}, after: function(resp){
-										 		$("#winTerminar").modal("hide");
 										 		
 											 	if (resp.band){
 											 		cordova.plugins.backgroundMode.disable();
