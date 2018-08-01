@@ -266,7 +266,6 @@ function callAdjudicadas(){
 										"fotografias": fotografias,
 										fn: {
 										 	before: function(){
-											 	jsShowWindowLoad("Estamos indicando que el servicio se ha completado, por favor espera");
 										 	}, after: function(resp){
 											 	if (resp.band){
 											 		cordova.plugins.backgroundMode.disable();
