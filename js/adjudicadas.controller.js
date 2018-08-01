@@ -182,6 +182,48 @@ function callAdjudicadas(){
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
 					}
 					
+					$("#btnCamara").click(function(){
+						if ($("#lstImg").find("img").length < 4){
+							navigator.camera.getPicture(function(imageURI){
+								agregarFoto(imageURI);
+							}, function(message){
+								alertify.error("Ocurrio un error al obtener la imagen");
+							}, { 
+								quality: 100,
+								destinationType: Camera.DestinationType.DATA_URL,
+								encodingType: Camera.EncodingType.JPEG,
+								targetWidth: 800,
+								targetHeight: 800,
+								correctOrientation: true,
+								allowEdit: false,
+								saveToPhotoAlbum: true
+							});
+						}else{
+							alertify.error("Solo se permiten 4 fotografías");
+						}
+					});
+					
+					$("#btnGaleria").click(function(){
+						if ($("#lstImg").find("img").length < 4){
+							navigator.camera.getPicture(function(imageURI){
+								agregarFoto(imageURI);
+							}, function(message){
+								alertify.error("Ocurrio un error al obtener la imagen");
+							}, { 
+								quality: 100,
+								destinationType: Camera.DestinationType.DATA_URL,
+								encodingType: Camera.EncodingType.JPEG,
+								targetWidth: 800,
+								targetHeight: 800,
+								correctOrientation: true,
+								allowEdit: false,
+								sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM
+							});
+						}else
+							alertify.error("Solo se permiten 4 fotografías");
+					});
+
+					
 					$("#btnTerminar").attr("oferta", datos.idOrden).click(function(){
 						var punto = $("#winTerminar").attr("punto");
 
@@ -199,7 +241,7 @@ function callAdjudicadas(){
 										fotografias[i++] = $(this).attr("src2");
 									});
 									
-									var obj = new TOferta;
+									var obj = new TOrden;
 									obj.terminar({
 										"punto": punto,
 										"comentario": $("#txtComentario").val(),
@@ -208,19 +250,14 @@ function callAdjudicadas(){
 										 	before: function(){
 											 	jsShowWindowLoad("Estamos indicando que el servicio se ha completado, por favor espera");
 										 	}, after: function(resp){
-										 		if (resp.faltantes == 0){
-												 	cordova.plugins.backgroundMode.disable();
+											 	if (resp.band){
+											 		cordova.plugins.backgroundMode.disable();
 												 	window.localStorage.removeItem("latitude");
 												 	window.localStorage.removeItem("longitude");
 												 	window.localStorage.removeItem("idOrden");
-												 	alertify.success("El reporte de tu ubicación ha finalizado");
-												}else{
-													alertify.success("Gracias, puedes continuar tu recorrido");
-												}
-											 	
-											 	$("#winTerminar").modal("hide");
-											 	
-											 	if (resp.band){
+												 	window.localStorage.removeItem("fecha");
+												 	
+												 	$("#winTerminar").modal("hide");
 												 	callAdjudicadas();
 												 	alertify.success("Muchas gracias por la información, tu trabajo fue enviado");
 											 	}else{

@@ -60,7 +60,7 @@ TOrden = function(fn){
 		if (datos.fn.before !== undefined) datos.fn.before();
 		
 		$.post(server + 'cordenes', {
-				"punto": datos.punto,
+				"orden": datos.id,
 				"comentario": datos.comentario,
 				"foto1": datos.fotografias[0],
 				"foto2": datos.fotografias[1],
