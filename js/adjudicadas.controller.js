@@ -261,7 +261,7 @@ function callAdjudicadas(){
 									
 									var obj = new TOrden;
 									obj.terminar({
-										"punto": punto,
+										"id": $("#btnTerminar").attr("oferta"),
 										"comentario": $("#txtComentario").val(),
 										"fotografias": fotografias,
 										fn: {
