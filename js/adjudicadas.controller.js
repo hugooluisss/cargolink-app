@@ -276,8 +276,8 @@ function callAdjudicadas(){
 												 	window.localStorage.removeItem("idOrden");
 												 	window.localStorage.removeItem("fecha");
 												 	
-												 	callAdjudicadas();
 												 	alertify.success("Muchas gracias por la información, tu trabajo fue enviado");
+												 	callAdjudicadas();
 											 	}else{
 												 	alertify.error("Ocurrió un error, intentalo más tarde");
 											 	}
