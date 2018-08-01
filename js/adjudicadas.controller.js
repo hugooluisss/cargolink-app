@@ -267,6 +267,8 @@ function callAdjudicadas(){
 										fn: {
 										 	before: function(){
 										 	}, after: function(resp){
+										 		$("#winTerminar").modal("hide");
+										 		
 											 	if (resp.band){
 											 		cordova.plugins.backgroundMode.disable();
 												 	window.localStorage.removeItem("latitude");
@@ -274,7 +276,6 @@ function callAdjudicadas(){
 												 	window.localStorage.removeItem("idOrden");
 												 	window.localStorage.removeItem("fecha");
 												 	
-												 	$("#winTerminar").modal("hide");
 												 	callAdjudicadas();
 												 	alertify.success("Muchas gracias por la información, tu trabajo fue enviado");
 											 	}else{
