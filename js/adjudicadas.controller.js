@@ -182,6 +182,24 @@ function callAdjudicadas(){
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
 					}
 					
+					function agregarFoto(imageURI){
+						var img = $("<img />");
+						
+						$("#lstImg").append(img);				
+						img.attr("src", "data:image/jpeg;base64," + imageURI);
+						img.attr("src2", imageURI);
+						
+						img.click(function(){
+							var foto = $(this);
+							alertify.confirm("Se eliminará la fotografía del reporte ¿seguro?", function (e) {
+								if (e) {
+									foto.remove();
+									alertify.success("Fotografía eliminada");
+								}
+							}); 
+						});
+					}
+					
 					$("#btnCamara").click(function(){
 						if ($("#lstImg").find("img").length < 4){
 							navigator.camera.getPicture(function(imageURI){
