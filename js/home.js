@@ -84,7 +84,9 @@ $(document).ready(function(){
 	plantillas["detalleOfertaPostulada"] = "";
 	plantillas["adjudicadas"] = "";
 	plantillas["detalleOfertaAdjudicada"] = "";
-	
+	plantillas["finalizadas"] = "";
+	plantillas["ofertaFinalizada"] = "";
+	plantillas["detalleOfertaFinalizada"] = "";
 	getPlantillas(function(){
 		callHome();
 	});
@@ -105,6 +107,9 @@ function callPanel(panel){
 		break;
 		case 'adjudicadas':
 			callAdjudicadas();
+		break;
+		case 'finalizadas':
+			callFinalizadas();
 		break;
 		default:
 			console.info("Panel no encontrado");

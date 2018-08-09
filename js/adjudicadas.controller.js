@@ -27,15 +27,13 @@ function callAdjudicadas(){
 					setDatos(detalle, datos);
 					$("#dvDetalle").html(detalle);
 					
-					if (mapa == undefined){
-						mapa = new google.maps.Map(document.getElementById("mapa"), {
-							center: {lat: datos.origen_json.latitude, lng: datos.origen_json.longitude},
-							scrollwheel: true,
-							fullscreenControl: true,
-							zoom: 10,
-							zoomControl: true
-						});
-					}
+					mapa = new google.maps.Map(document.getElementById("mapa"), {
+						center: {lat: datos.origen_json.latitude, lng: datos.origen_json.longitude},
+						scrollwheel: true,
+						fullscreenControl: true,
+						zoom: 10,
+						zoomControl: true
+					});
 					
 					var origen = new google.maps.LatLng(datos.origen_json.latitude, datos.origen_json.longitude);
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);

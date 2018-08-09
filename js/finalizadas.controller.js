@@ -1,28 +1,28 @@
-function callPostuladas(){
-	console.info("Llamando a ofertas postuladas");
-	$("#modulo").html(plantillas["postuladas"]);
+function callFinalizadas(){
+	console.info("Llamando a ofertas finalizadas");
+	$("#modulo").html(plantillas["finalizadas"]);
 	setPanel();
 	getLista();
 	var mapa = undefined;
 	
 	function getLista(){
-		$.post(server + "listaordenestransportistaspostuladas", {
+		$.post(server + "listaordenestransportistasfinalizadas", {
 			movil: true,
 			transportista: objUsuario.idTransportista,
 		}, function(ordenes){
-			$("#dvListaPostuladas").html("");
+			$("#dvListaFinalizadas").html("");
 			
 			if (ordenes.length == 0){
-				$("#dvListaPostuladas").html(plantillas['sinOfertas']);
+				$("#dvListaFinalizadas").html(plantillas['sinOfertas']);
 			}
 			
 			$.each(ordenes, function(i, orden){
-				var plantilla = $(plantillas['oferta']);
+				var plantilla = $(plantillas['ofertaFinalizada']);
 				setDatos(plantilla, orden);
 				plantilla.attr("json", JSON.stringify(orden));
 				
 				plantilla.find(".ver").click(function(){
-					var detalle = $(plantillas['detalleOfertaPostulada']);
+					var detalle = $(plantillas['detalleOfertaFinalizada']);
 					var datos = JSON.parse(plantilla.attr("json"));
 					setDatos(detalle, datos);
 					$("#dvDetalle").html(detalle);
@@ -51,15 +51,15 @@ function callPostuladas(){
 					marcaDestino.setMap(mapa);
 					
 					$("#dvDetalle").show();
-					$("#dvListaPostuladas").hide();
+					$("#dvListaFinalizadas").hide();
 					
 					$(".btnRegresar").click(function(){
 						$("#dvDetalle").hide();
-						$("#dvListaPostuladas").show();
+						$("#dvListaFinalizadas").show();
 					});
 				});
 				
-				$("#dvListaPostuladas").append(plantilla);
+				$("#dvListaFinalizadas").append(plantilla);
 			});
 		}, "json");
 	}
