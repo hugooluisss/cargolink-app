@@ -38,6 +38,38 @@ function callAdjudicadas(){
 					var origen = new google.maps.LatLng(datos.origen_json.latitude, datos.origen_json.longitude);
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);
 					
+					var directionsService = new google.maps.DirectionsService;
+					var directionsDisplay = new google.maps.DirectionsRenderer;
+					directionsDisplay.setMap(mapa);
+					directionsDisplay.setOptions({
+						suppressMarkers: true
+					});
+					
+					navigator.geolocation.getCurrentPosition(function(gps){
+						marcaActual = new google.maps.Marker({
+							position: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
+							title: "Posición actual"
+						});
+						marcaActual.setMap(mapa);
+						
+						directionsService.route({
+							origin: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
+							destination: destino,
+							travelMode: 'DRIVING',
+							unitSystem: google.maps.UnitSystem.METRIC,
+							optimizeWaypoints: true,
+						}, function(response, status) {
+							if (status === 'OK') {
+								directionsDisplay.setDirections(response);
+							} else {
+								window.alert('Directions request failed due to ' + status);
+							}
+						});
+					
+					}, function(){
+						mensajes.alert({"mensaje": "No pudimos obtener tu ubicación, revisa tener habilitado el GPS de tu dispositivo", "titulo": "Error GPS"});
+					});
+					
 					marcaOrigen = new google.maps.Marker({
 						icon: "img/truck.png"
 					});

@@ -45,6 +45,27 @@ function callOfertas(){
 					var origen = new google.maps.LatLng(datos.origen_json.latitude, datos.origen_json.longitude);
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);
 					
+					var directionsService = new google.maps.DirectionsService;
+					var directionsDisplay = new google.maps.DirectionsRenderer;
+					directionsDisplay.setMap(mapa);
+					directionsDisplay.setOptions({
+						suppressMarkers: true
+					});
+					
+					directionsService.route({
+						origin: origen,
+						destination: destino,
+						travelMode: 'DRIVING',
+						unitSystem: google.maps.UnitSystem.METRIC,
+						optimizeWaypoints: true,
+					}, function(response, status) {
+						if (status === 'OK') {
+							directionsDisplay.setDirections(response);
+						} else {
+							window.alert('Directions request failed due to ' + status);
+						}
+					});
+					
 					marcaOrigen = new google.maps.Marker({
 						icon: "img/truck.png"
 					});

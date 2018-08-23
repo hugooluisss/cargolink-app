@@ -4,13 +4,23 @@ function callHome(){
 	setPanel();
 	console.info("Carga de home finalizada");
 	
+	objUsuario.getData({
+		"id": objUsuario.idTransportista,
+		fn: {
+			after: function(resp){
+				if(resp.datos.situacion == 0)
+					$("#dvEnRuta").show();
+			}
+		}
+	})
+	
+	
 	$("#btnSalir").click(function(){
 		alertify.confirm("¿Seguro?", function(e){
     		if(e) {
     			window.plugins.PushbotsPlugin.removeTags(["chofer", "operador"]);
     			window.plugins.PushbotsPlugin.removeAlias();
-	    		window.localStorage.removeItem("sesion");
-	    		window.localStorage.removeItem("idOrden");
+	    		window.localStorage.removeItem("session");
 	    		//backgroundGeolocation.stop();
 	    		location.href = "index.html";
 	    	}

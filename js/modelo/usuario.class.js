@@ -36,10 +36,10 @@ TUsuario = function(chofer){
 		
 		var usuario = datos.idTransportista == undefined?self.idTransportista:datos.idTransportista;
 		
-		$.post(server + 'cusuarios', {
+		$.post(server + 'ctransportistas', {
 			"id": usuario,
 			"action": 'getData',
-			"movil": 'true'
+			"movil": true
 		}, function(resp){
 			self.datos = resp;
 			self.imagenPerfil = self.datos.imagenPerfil;
