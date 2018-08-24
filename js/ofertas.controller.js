@@ -34,6 +34,8 @@ function callOfertas(){
 					setDatos(detalle, datos);
 					$("#dvDetalle").html(detalle);
 					
+					var infoWindow = new google.maps.InfoWindow({content: ""});
+					
 					mapa = new google.maps.Map(document.getElementById("mapa"), {
 						center: {lat: datos.origen_json.latitude, lng: datos.origen_json.longitude},
 						scrollwheel: true,
@@ -52,20 +54,6 @@ function callOfertas(){
 						suppressMarkers: true
 					});
 					
-					directionsService.route({
-						origin: origen,
-						destination: destino,
-						travelMode: 'DRIVING',
-						unitSystem: google.maps.UnitSystem.METRIC,
-						optimizeWaypoints: true,
-					}, function(response, status) {
-						if (status === 'OK') {
-							directionsDisplay.setDirections(response);
-						} else {
-							window.alert('Directions request failed due to ' + status);
-						}
-					});
-					
 					marcaOrigen = new google.maps.Marker({
 						icon: "img/truck.png"
 					});
@@ -77,6 +65,34 @@ function callOfertas(){
 					});
 					marcaDestino.setPosition(destino);
 					marcaDestino.setMap(mapa);
+					
+					directionsService.route({
+						origin: origen,
+						destination: destino,
+						travelMode: 'DRIVING',
+						unitSystem: google.maps.UnitSystem.METRIC,
+						optimizeWaypoints: true,
+					}, function(response, status) {
+						if (status === 'OK') {
+							directionsDisplay.setDirections(response);
+							
+							route = response.routes[0];
+							distancia = 0;
+							tiempo = 0;
+							for(i in route.legs){
+								distancia = route.legs[i].distance.value;
+								tiempo = route.legs[i].duration.value;
+							}
+							
+							horas = tiempo / 360;
+							minutos = (tiempo - (tiempo / 360)) / 60;
+							
+							infoWindow.setContent("<b>Distancia: </b>" + (distancia/1000) + " Km<br /><b>Tiempo: </b>" + Math.floor(horas) + ":" + Math.floor(minutos) + " horas");
+							infoWindow.open(mapa, marcaDestino);
+						} else {
+							window.alert('Directions request failed due to ' + status);
+						}
+					});
 					
 					$("#dvDetalle").show();
 					$("#dvLista").hide();

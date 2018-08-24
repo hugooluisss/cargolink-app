@@ -44,7 +44,8 @@ function callAdjudicadas(){
 					directionsDisplay.setOptions({
 						suppressMarkers: true
 					});
-					
+					var infoWindow = new google.maps.InfoWindow({content: ""});
+					var idOrden = window.localStorage.getItem("idOrden");
 					navigator.geolocation.getCurrentPosition(function(gps){
 						marcaActual = new google.maps.Marker({
 							position: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
@@ -52,15 +53,38 @@ function callAdjudicadas(){
 						});
 						marcaActual.setMap(mapa);
 						
+						if (idOrden == datos.idOrden){//Quiere decir que está en ruta
+							salida = new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude);
+							entrega = destino;
+						}else{
+							salida = origen;
+							entrega = destino;
+						}
+						
+						
 						directionsService.route({
-							origin: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
-							destination: destino,
+							origin: salida,
+							destination: entrega,
 							travelMode: 'DRIVING',
 							unitSystem: google.maps.UnitSystem.METRIC,
 							optimizeWaypoints: true,
 						}, function(response, status) {
 							if (status === 'OK') {
 								directionsDisplay.setDirections(response);
+								
+								route = response.routes[0];
+								distancia = 0;
+								tiempo = 0;
+								for(i in route.legs){
+									distancia = route.legs[i].distance.value;
+									tiempo = route.legs[i].duration.value;
+								}
+								
+								horas = tiempo / 360;
+								minutos = (tiempo - (tiempo / 360)) / 60;
+								
+								infoWindow.setContent("<b>Distancia: </b>" + (distancia/1000) + " Km<br /><b>Tiempo: </b>" + Math.floor(horas) + ":" + Math.floor(minutos) + " horas");
+								infoWindow.open(mapa, marcaDestino);
 							} else {
 								window.alert('Directions request failed due to ' + status);
 							}
@@ -90,7 +114,6 @@ function callAdjudicadas(){
 						$("#dvListaAdjudicadas").show();
 					});
 					
-					var idOrden = window.localStorage.getItem("idOrden");
 					detalle.find(".dvEnRuta").hide();
 					detalle.find(".dvTerminar").hide();
 					
