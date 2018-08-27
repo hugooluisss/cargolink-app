@@ -18,7 +18,7 @@ function callHome(){
 	$("#btnSalir").click(function(){
 		alertify.confirm("¿Seguro?", function(e){
     		if(e) {
-    			window.plugins.PushbotsPlugin.removeTags(["chofer", "operador"]);
+    			window.plugins.PushbotsPlugin.removeTags(["transporitsta"]);
     			window.plugins.PushbotsPlugin.removeAlias();
 	    		window.localStorage.removeItem("session");
 	    		//backgroundGeolocation.stop();
