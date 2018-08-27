@@ -153,9 +153,9 @@ function getPlantillas(after){
 
 
 function activarNotificaciones(){
-	window.plugins.PushbotsPlugin.initialize("591c5d2d4a9efa6e888b4567", {
+	window.plugins.PushbotsPlugin.initialize("5b840a5a69b5ee631a277055", {
 		"android":{
-			"sender_id":"298644715501"
+			"sender_id":"588582936060"
 		}
 	});
 	
