@@ -4,29 +4,29 @@ function callAdjudicadas(){
 	setPanel();
 	getLista();
 	var mapa = undefined;
-	
+
 	function getLista(){
 		$.post(server + "listaordenestransportistasadjudicadas", {
 			movil: true,
 			transportista: objUsuario.idTransportista,
 		}, function(ordenes){
 			$("#dvListaAdjudicadas").html("");
-			
+
 			if (ordenes.length == 0){
 				$("#dvListaAdjudicadas").html(plantillas['sinOfertas']);
 			}
-			
+
 			$.each(ordenes, function(i, orden){
 				var plantilla = $(plantillas['oferta']);
 				setDatos(plantilla, orden);
 				plantilla.attr("json", JSON.stringify(orden));
-				
+
 				plantilla.find(".ver").click(function(){
 					var detalle = $(plantillas['detalleOfertaAdjudicada']);
 					var datos = JSON.parse(plantilla.attr("json"));
 					setDatos(detalle, datos);
 					$("#dvDetalle").html(detalle);
-					
+
 					mapa = new google.maps.Map(document.getElementById("mapa"), {
 						center: {lat: datos.origen_json.latitude, lng: datos.origen_json.longitude},
 						scrollwheel: true,
@@ -34,10 +34,10 @@ function callAdjudicadas(){
 						zoom: 10,
 						zoomControl: true
 					});
-					
+
 					var origen = new google.maps.LatLng(datos.origen_json.latitude, datos.origen_json.longitude);
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);
-					
+
 					var directionsService = new google.maps.DirectionsService;
 					var directionsDisplay = new google.maps.DirectionsRenderer;
 					directionsDisplay.setMap(mapa);
@@ -52,7 +52,7 @@ function callAdjudicadas(){
 							title: "Posición actual"
 						});
 						marcaActual.setMap(mapa);
-						
+
 						if (idOrden == datos.idOrden){//Quiere decir que está en ruta
 							salida = new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude);
 							entrega = destino;
@@ -60,8 +60,8 @@ function callAdjudicadas(){
 							salida = origen;
 							entrega = destino;
 						}
-						
-						
+
+
 						directionsService.route({
 							origin: salida,
 							destination: entrega,
@@ -71,72 +71,72 @@ function callAdjudicadas(){
 						}, function(response, status) {
 							if (status === 'OK') {
 								directionsDisplay.setDirections(response);
-								
+
 								route = response.routes[0];
 								distancia = 0;
 								tiempo = 0;
 								for(i in route.legs){
-									distancia = route.legs[i].distance.value;
-									tiempo = route.legs[i].duration.value;
+									distancia += route.legs[i].distance.value;
+									tiempo += route.legs[i].duration.value;
 								}
-								
-								horas = tiempo / 360;
-								minutos = (tiempo - (tiempo / 360)) / 60;
-								
-								infoWindow.setContent("<b>Distancia: </b>" + (distancia/1000) + " Km<br /><b>Tiempo: </b>" + Math.floor(horas) + ":" + Math.floor(minutos) + " horas");
+
+								horas = Math.floor(tiempo / 3600);
+								minutos = ((tiempo - horas) / 60).toFixed(0);
+
+								infoWindow.setContent("<b>Distancia: </b>" + (distancia/1000).toFixed(1) + " Km<br /><b>Tiempo: </b>" + horas + ":" + minutos + " horas");
 								infoWindow.open(mapa, marcaDestino);
 							} else {
 								window.alert('Directions request failed due to ' + status);
 							}
 						});
-					
+
 					}, function(){
 						mensajes.alert({"mensaje": "No pudimos obtener tu ubicación, revisa tener habilitado el GPS de tu dispositivo", "titulo": "Error GPS"});
 					});
-					
+
 					marcaOrigen = new google.maps.Marker({
 						icon: "img/truck.png"
 					});
 					marcaOrigen.setPosition(origen);
 					marcaOrigen.setMap(mapa);
-					
+
 					marcaDestino = new google.maps.Marker({
 						icon: "img/house.png"
 					});
 					marcaDestino.setPosition(destino);
 					marcaDestino.setMap(mapa);
-					
+
 					$("#dvDetalle").show();
 					$("#dvListaAdjudicadas").hide();
-					
+
 					$(".btnRegresar").click(function(){
 						$("#dvDetalle").hide();
 						$("#dvListaAdjudicadas").show();
 					});
-					
+
 					detalle.find(".dvEnRuta").hide();
 					detalle.find(".dvTerminar").hide();
-					
+
 					if (idOrden == undefined || idOrden == null)
 						detalle.find(".dvEnRuta").show();
 					else if (idOrden == datos.idOrden)
 						detalle.find(".dvTerminar").show();
 					else
 						detalle.find(".dvEnRuta").show();
-						
-						
-					
+
+
+
 					navigator.geolocation.getCurrentPosition(function(position){
 						console.log("Ok", position);
 					}, function(error){
 						console.log("Error", error);
-					});	
-					
-					
-					cordova.plugins.backgroundMode.on('activate', function() {
-						cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
 					});
-					
+
+
+					cordova.plugins.backgroundMode.on('activate', function() {
+						cordova.plugins.backgroundMode.disableWebViewOptimizations();
+					});
+
 					cordova.plugins.backgroundMode.setDefaults({
 						title: "En ruta",
 						text: "Estas en ruta en la orden " + datos.folio,
@@ -146,27 +146,27 @@ function callAdjudicadas(){
 						hidden: false,
 						bigText: Boolean
 					});
-						
-					
+
+
 					cordova.plugins.backgroundMode.on('enable', function(){
 						window.localStorage.removeItem("fecha");
-						cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
+						cordova.plugins.backgroundMode.disableWebViewOptimizations();
 						navigator.geolocation.watchPosition(function(position){
 							var idOrden = window.localStorage.getItem("idOrden");
-							
+
 							var fecha = window.localStorage.getItem("fecha");
 							var dt = new Date();
-							
+
 							if (fecha == null || fecha == NaN || fecha == 'NaN')
 								window.localStorage.setItem("fecha", dt.getTime());
-								
+
 							fecha = fecha == null || fecha == NaN || fecha == 'NaN'?(dt.getTime()):fecha;
-							
+
 							if (idOrden != undefined && idOrden != ''){
 								var ultimoUpdate = new Date(fecha);
 								if ((dt.getTime() - 60000) >= fecha){
 									window.localStorage.setItem("fecha", dt.getTime());
-									
+
 									$.post(server + 'cordenes', {
 										"orden": idOrden,
 										"latitude": position.coords.latitude,
@@ -193,32 +193,32 @@ function callAdjudicadas(){
 								console.log("Terminando seguimiento");
 								window.localStorage.removeItem("fecha");
 							}
-								
+
 						}, function(error){
 							console.log("Error GPS", error);
 						}, {
-							enableHighAccuracy: false, 
-							maximumAge        : 0, 
+							enableHighAccuracy: false,
+							maximumAge        : 0,
 							timeout           : 1200000
 						});
 					});
-						
-					
-					
-					
+
+
+
+
 					$(".btnEnRuta").attr("oferta", datos.idOrden).click(function(){
 						setRuta($(".btnEnRuta").attr("oferta"));
 						callAdjudicadas();
 					});
-					
+
 					if (datos.idEstado == 4)
 						setRuta(datos.idOrden);
-					
+
 					function setRuta(orden){
 						window.localStorage.removeItem("idOrden");
 						window.localStorage.removeItem("fecha");
 						window.localStorage.setItem("idOrden", orden);
-						
+
 						$.post(server + 'cordenes', {
 							"orden": orden,
 							"action": 'setEnRuta',
@@ -229,19 +229,19 @@ function callAdjudicadas(){
 							else
 								console.log("Cambio de estado en ruta OK");
 						}, "json");
-						
+
 						cordova.plugins.backgroundMode.enable();
-						
+
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
 					}
-					
+
 					function agregarFoto(imageURI){
 						var img = $("<img />");
-						
-						$("#lstImg").append(img);				
+
+						$("#lstImg").append(img);
 						img.attr("src", "data:image/jpeg;base64," + imageURI);
 						img.attr("src2", imageURI);
-						
+
 						img.click(function(){
 							var foto = $(this);
 							alertify.confirm("Se eliminará la fotografía del reporte ¿seguro?", function (e) {
@@ -249,17 +249,17 @@ function callAdjudicadas(){
 									foto.remove();
 									alertify.success("Fotografía eliminada");
 								}
-							}); 
+							});
 						});
 					}
-					
+
 					$("#btnCamara").click(function(){
 						if ($("#lstImg").find("img").length < 4){
 							navigator.camera.getPicture(function(imageURI){
 								agregarFoto(imageURI);
 							}, function(message){
 								alertify.error("Ocurrio un error al obtener la imagen");
-							}, { 
+							}, {
 								quality: 100,
 								destinationType: Camera.DestinationType.DATA_URL,
 								encodingType: Camera.EncodingType.JPEG,
@@ -273,14 +273,14 @@ function callAdjudicadas(){
 							alertify.error("Solo se permiten 4 fotografías");
 						}
 					});
-					
+
 					$("#btnGaleria").click(function(){
 						if ($("#lstImg").find("img").length < 4){
 							navigator.camera.getPicture(function(imageURI){
 								agregarFoto(imageURI);
 							}, function(message){
 								alertify.error("Ocurrio un error al obtener la imagen");
-							}, { 
+							}, {
 								quality: 100,
 								destinationType: Camera.DestinationType.DATA_URL,
 								encodingType: Camera.EncodingType.JPEG,
@@ -294,7 +294,7 @@ function callAdjudicadas(){
 							alertify.error("Solo se permiten 4 fotografías");
 					});
 
-					
+
 					$("#btnTerminar").attr("oferta", datos.idOrden).click(function(){
 						var punto = $("#winTerminar").attr("punto");
 
@@ -312,7 +312,7 @@ function callAdjudicadas(){
 										fotografias[i] = "";
 										fotografias[i++] = $(this).attr("src2");
 									});
-									
+
 									var obj = new TOrden;
 									obj.terminar({
 										"id": $("#btnTerminar").attr("oferta"),
@@ -321,14 +321,14 @@ function callAdjudicadas(){
 										fn: {
 										 	before: function(){
 										 	}, after: function(resp){
-										 		
+
 											 	if (resp.band){
 											 		cordova.plugins.backgroundMode.disable();
 												 	window.localStorage.removeItem("latitude");
 												 	window.localStorage.removeItem("longitude");
 												 	window.localStorage.removeItem("idOrden");
 												 	window.localStorage.removeItem("fecha");
-												 	
+
 												 	alertify.success("Muchas gracias por la información, tu trabajo fue enviado");
 												 	callAdjudicadas();
 											 	}else{
@@ -338,12 +338,12 @@ function callAdjudicadas(){
 										}
 									});
 								}
-							}); 
+							});
 						}
 					});
-					
+
 				});
-				
+
 				$("#dvListaAdjudicadas").append(plantilla);
 			});
 		}, "json");
