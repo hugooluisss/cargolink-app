@@ -49,7 +49,8 @@ function callAdjudicadas(){
 					navigator.geolocation.getCurrentPosition(function(gps){
 						marcaActual = new google.maps.Marker({
 							position: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
-							title: "Posición actual"
+							title: "Posición actual",
+							icon: "img/PosicionActual.png"
 						});
 						marcaActual.setMap(mapa);
 
