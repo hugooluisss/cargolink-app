@@ -8,7 +8,7 @@ function callHome(){
 		"id": objUsuario.idTransportista,
 		fn: {
 			after: function(resp){
-				if(resp.datos.situacion == 0)
+				if(resp.datos.situacion == 1)
 					$("#dvEnRuta").show();
 			}
 		}
@@ -21,7 +21,7 @@ function callHome(){
     			window.plugins.PushbotsPlugin.removeTags(["transporitsta"]);
     			window.plugins.PushbotsPlugin.removeAlias();
 	    		window.localStorage.removeItem("session");
-	    		//backgroundGeolocation.stop();
+	    		backgroundGeolocation.stop();
 	    		location.href = "index.html";
 	    	}
     	});

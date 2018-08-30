@@ -87,7 +87,7 @@ function callOfertas(){
 							horas = Math.floor(tiempo / 3600);
 							minutos = ((tiempo - horas) / 60).toFixed(0);
 
-							infoWindow.setContent("<b>Distancia: </b>" + (distancia/1000).toFixed(1) + " Km<br /><b>Tiempo: </b>" + horas + ":" + minutos + " horas");
+							infoWindow.setContent('<i class="fa fa-car" aria-hidden="true"></i> ' + Math.floor(horas) + ' hrs ' + Math.floor(minutos) + ' min<br /><small>' + (distancia/1000).toFixed(1) + ' Km</small>');
 							infoWindow.open(mapa, marcaDestino);
 						} else {
 							window.alert('Directions request failed due to ' + status);
