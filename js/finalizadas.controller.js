@@ -39,13 +39,13 @@ function callFinalizadas(){
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);
 					
 					marcaOrigen = new google.maps.Marker({
-						icon: "img/truck.png"
+						icon: "img/origen.png"
 					});
 					marcaOrigen.setPosition(origen);
 					marcaOrigen.setMap(mapa);
 					
 					marcaDestino = new google.maps.Marker({
-						icon: "img/house.png"
+						icon: "img/destino.png"
 					});
 					marcaDestino.setPosition(destino);
 					marcaDestino.setMap(mapa);

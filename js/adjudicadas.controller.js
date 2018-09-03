@@ -50,7 +50,7 @@ function callAdjudicadas(){
 						marcaActual = new google.maps.Marker({
 							position: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
 							title: "Posición actual",
-							icon: "img/PosicionActual.png"
+							icon: "img/posicionActual.png"
 						});
 						marcaActual.setMap(mapa);
 
@@ -96,13 +96,13 @@ function callAdjudicadas(){
 					});
 
 					marcaOrigen = new google.maps.Marker({
-						icon: "img/truck.png"
+						icon: "img/origen.png"
 					});
 					marcaOrigen.setPosition(origen);
 					marcaOrigen.setMap(mapa);
 
 					marcaDestino = new google.maps.Marker({
-						icon: "img/house.png"
+						icon: "img/destino.png"
 					});
 					marcaDestino.setPosition(destino);
 					marcaDestino.setMap(mapa);

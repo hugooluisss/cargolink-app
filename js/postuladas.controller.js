@@ -47,13 +47,13 @@ function callPostuladas(){
 					});
 
 					marcaOrigen = new google.maps.Marker({
-						icon: "img/truck.png"
+						icon: "img/origen.png"
 					});
 					marcaOrigen.setPosition(origen);
 					marcaOrigen.setMap(mapa);
 
 					marcaDestino = new google.maps.Marker({
-						icon: "img/house.png"
+						icon: "img/destino.png"
 					});
 					marcaDestino.setPosition(destino);
 					marcaDestino.setMap(mapa);
