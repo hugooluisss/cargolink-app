@@ -113,6 +113,7 @@ function callOfertas(){
 							"funcion": function(result){
 								if (result.buttonIndex == 1){
 									monto = result.input1;
+									monto = monto.replace(".", "");
 									if (Number(monto) <= Number(datos.presupuesto) && Number(monto) > 0){
 										var oferta = $(this).attr("oferta");
 							    		var obj = new TOrden;
