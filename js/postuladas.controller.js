@@ -26,6 +26,7 @@ function callPostuladas(){
 					var detalle = $(plantillas['detalleOfertaPostulada']);
 					var datos = JSON.parse(plantilla.attr("json"));
 					setDatos(detalle, datos);
+					console.log("Datos", datos);
 					$("#dvDetalle").html(detalle);
 
 					mapa = new google.maps.Map(document.getElementById("mapa"), {

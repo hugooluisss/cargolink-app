@@ -46,7 +46,7 @@ function callOfertas(){
 
 					var origen = new google.maps.LatLng(datos.origen_json.latitude, datos.origen_json.longitude);
 					var destino = new google.maps.LatLng(datos.destino_json.latitude, datos.destino_json.longitude);
-
+					console.log("Datos", datos);
 					var directionsService = new google.maps.DirectionsService;
 					var directionsDisplay = new google.maps.DirectionsRenderer;
 					directionsDisplay.setMap(mapa);
