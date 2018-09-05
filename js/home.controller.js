@@ -21,8 +21,8 @@ function callHome(){
     			window.plugins.PushbotsPlugin.removeTags(["transporitsta"]);
     			window.plugins.PushbotsPlugin.removeAlias();
 	    		window.localStorage.removeItem("session");
-	    		backgroundGeolocation.stop();
 	    		location.href = "index.html";
+	    		cordova.plugins.backgroundMode.disable();
 	    	}
     	});
 	});

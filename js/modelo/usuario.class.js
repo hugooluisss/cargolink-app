@@ -79,6 +79,7 @@ TUsuario = function(chofer){
 				"calificacion": datos.calificacion,
 				"aprobado": datos.aprobado,
 				"situacion": datos.situacion,
+				"telefono": datos.telefono,
 				"action": "add",
 				"movil": true
 			}, function(data){
