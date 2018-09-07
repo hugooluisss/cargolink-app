@@ -212,22 +212,6 @@ function callAdjudicadas(){
 					$(".btnEnRuta").attr("oferta", datos.idOrden).click(function(){
 						setRuta($(".btnEnRuta").attr("oferta"));
 						
-						$.post(server + 'cordenes', {
-							"orden": idOrden,
-							"latitude": gpsPrincipal.coords.latitude,
-							"longitude": gpsPrincipal.coords.longitude,
-							"gps": gpsPrincipal,
-							"action": 'addPosicion',
-							"movil": true
-						}, function(resp){
-							if (!resp.band)
-								console.log("Error");
-							else
-								console.log("Posición reportada");
-						}, "json");
-						
-						
-						
 						callAdjudicadas();
 					});
 
@@ -253,6 +237,25 @@ function callAdjudicadas(){
 						cordova.plugins.backgroundMode.enable();
 
 						alertify.log("Estaremos reportandole tu ubicación al cliente");
+						
+						navigator.geolocation.getCurrentPosition(function(gps){
+							gpsPrincipal = gps;
+							$.post(server + 'cordenes', {
+								"orden": orden,
+								"latitude": gpsPrincipal.coords.latitude,
+								"longitude": gpsPrincipal.coords.longitude,
+								"gps": gpsPrincipal,
+								"action": 'addPosicion',
+								"movil": true
+							}, function(resp){
+								if (!resp.band)
+									console.log("Error");
+								else
+									console.log("Posición reportada");
+							}, "json");
+						}, function(){
+							console.log("no se pudo enviar la primera posición");
+						);
 					}
 
 					function agregarFoto(imageURI){
