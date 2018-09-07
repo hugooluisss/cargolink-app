@@ -231,7 +231,7 @@ function callAdjudicadas(){
 						callAdjudicadas();
 					});
 
-					if (datos.idEstado == 4 && datos.idOrden = idOrden)
+					if (datos.idEstado == 4 && datos.idOrden == idOrden)
 						setRuta(datos.idOrden);
 
 					function setRuta(orden){
