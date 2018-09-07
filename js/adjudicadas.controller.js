@@ -46,7 +46,9 @@ function callAdjudicadas(){
 					});
 					var infoWindow = new google.maps.InfoWindow({content: ""});
 					var idOrden = window.localStorage.getItem("idOrden");
+					var gpsPrincipal = undefined;
 					navigator.geolocation.getCurrentPosition(function(gps){
+						gpsPrincipal = gps;
 						marcaActual = new google.maps.Marker({
 							position: new google.maps.LatLng(gps.coords.latitude, gps.coords.longitude),
 							title: "Posición actual",
@@ -209,10 +211,27 @@ function callAdjudicadas(){
 
 					$(".btnEnRuta").attr("oferta", datos.idOrden).click(function(){
 						setRuta($(".btnEnRuta").attr("oferta"));
+						
+						$.post(server + 'cordenes', {
+							"orden": idOrden,
+							"latitude": gpsPrincipal.coords.latitude,
+							"longitude": gpsPrincipal.coords.longitude,
+							"gps": gpsPrincipal,
+							"action": 'addPosicion',
+							"movil": true
+						}, function(resp){
+							if (!resp.band)
+								console.log("Error");
+							else
+								console.log("Posición reportada");
+						}, "json");
+						
+						
+						
 						callAdjudicadas();
 					});
 
-					if (datos.idEstado == 4)
+					if (datos.idEstado == 4 && datos.idOrden = idOrden)
 						setRuta(datos.idOrden);
 
 					function setRuta(orden){
