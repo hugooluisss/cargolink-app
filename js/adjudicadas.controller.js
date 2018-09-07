@@ -255,7 +255,7 @@ function callAdjudicadas(){
 							}, "json");
 						}, function(){
 							console.log("no se pudo enviar la primera posición");
-						);
+						});
 					}
 
 					function agregarFoto(imageURI){
