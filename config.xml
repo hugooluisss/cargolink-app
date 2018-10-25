@@ -3,7 +3,7 @@
 	<widget xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
 		id    = "com.cargolink.app"
-		version  = "1.0.4">  
+		version  = "1.0.5">  
 
 		<name>CargoLink</name>
 		<description>Cargo Link</description>
@@ -154,7 +154,15 @@
 			<string>Para la elaboracion de reportes en el servicio de ordenes</string>
 		</gap:config-file>
 		
-		<gap:config-file platform="ios" parent="NSLocationWhenUseUsageDescription">
+		<gap:config-file platform="ios" parent="NSLocationWhenInUseUsageDescription">
+			<string>Necesitamos tu ubicacion para reportarle al cliente donde te encuentras mientras estas en ruta</string>
+		</gap:config-file>
+		
+		<gap:config-file platform="ios" parent="NSLocationAlwaysUseUsageDescription">
+			<string>Necesitamos tu ubicacion para reportarle al cliente donde te encuentras mientras estas en ruta</string>
+		</gap:config-file>
+		
+		<gap:config-file platform="ios" parent="NSLocationAlwaysUseAndWhenInUsageDescription">
 			<string>Necesitamos tu ubicacion para reportarle al cliente donde te encuentras mientras estas en ruta</string>
 		</gap:config-file>
 
