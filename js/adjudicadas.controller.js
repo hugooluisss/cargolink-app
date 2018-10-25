@@ -258,13 +258,13 @@ function callAdjudicadas(){
 						});
 					}
 
-					function agregarFoto(imageURI){
-						var img = $("<img />");
+					function agregarFoto(imageURI, el){
+						var img = el;
 
 						$("#lstImg").append(img);
 						img.attr("src", "data:image/jpeg;base64," + imageURI);
 						img.attr("src2", imageURI);
-
+						
 						img.click(function(){
 							var foto = $(this);
 							alertify.confirm("Se eliminará la fotografía del reporte ¿seguro?", function (e) {
@@ -274,12 +274,14 @@ function callAdjudicadas(){
 								}
 							});
 						});
+
 					}
 
 					$("#btnCamara").click(function(){
+						var el = $(this);
 						if ($("#lstImg").find("img").length < 4){
 							navigator.camera.getPicture(function(imageURI){
-								agregarFoto(imageURI);
+								agregarFoto(imageURI, el);
 							}, function(message){
 								alertify.error("Ocurrio un error al obtener la imagen");
 							}, {
@@ -298,9 +300,10 @@ function callAdjudicadas(){
 					});
 
 					$("#btnGaleria").click(function(){
+						var el = $(this);
 						if ($("#lstImg").find("img").length < 4){
 							navigator.camera.getPicture(function(imageURI){
-								agregarFoto(imageURI);
+								agregarFoto(imageURI, el);
 							}, function(message){
 								alertify.error("Ocurrio un error al obtener la imagen");
 							}, {
